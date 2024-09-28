@@ -48,7 +48,7 @@ const HomePage = () => {
         {isAuthenticated && <span className="z-10">{user.name}</span>}
         {isAuthenticated ? <button className="login-button" onClick={() => logout()}>Logout</button> :
           <button onClick={() => loginWithRedirect()} className="login-button">Log In</button>}
-
+        
       </div>
       <p>Hover over the tiles for some Disco Facts!</p>
 

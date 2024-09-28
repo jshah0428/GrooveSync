@@ -3,7 +3,7 @@ const Anthropic = require('@anthropic-ai/sdk');
 require('dotenv').config();
 
 const app = express();
-const port = 3000; 
+const port = 3001; 
 
 const anthropic = new Anthropic({
     apiKey: process.env.CLAUDE_API_KEY
@@ -38,7 +38,7 @@ app.listen(port, () => {
 
 
 // async function generateResponse(prompt) {
-//     const response = await fetch('http://localhost:3000/generate_homepage', {
+//     const response = await fetch('http://localhost:3001/generate_homepage', {
 //         method: 'POST',
 //         headers: {
 //             'Content-Type': 'application/json',
