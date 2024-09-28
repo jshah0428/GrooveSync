@@ -57,7 +57,8 @@ async function connection() {
         await client.connect();
         const database = client.db("userprofilesDB");
         const collection = database.collection("users");
-        return { database, collection };
+        const collection2 = database.collection("playlist");
+        return { database, collection, collection2 };
     } catch (error) {
         console.error("Error connecting to MongoDB:", error);
     }
@@ -87,26 +88,119 @@ app.post('/reg_login_users', async (req, res) => {
     }
 });
 
+
+//this method will add songs AND create playlists(if you set the songs array to blank ([]))
+app.post('/add_songs', async (req, res) => {
+    const { collection2 } = await connection();
+    
+    const user_id = req.body.userId;
+    const songs = req.body.songs; // This should be an array
+    const playlist_name = req.body.playlist_name;
+
+    if (!Array.isArray(songs)) {
+        return res.status(400).json({ error: 'Songs must be an array' });
+    }
+
+    const addSongs = {
+        user_id,
+        songs,
+        playlist_name,
+    };
+
+    for (const song of songs) {
+        if (!song.name || !song.artist || !song.url) {
+            return res.status(400).json({ error: 'Each song must have name, artist, and url' });
+        }
+    }
+
+    try {
+        const result = await collection2.updateOne(
+            { user_id, playlist_name },
+            { $push: { songs: { $each: songs } } },
+            { upsert: true } 
+        );
+
+        return res.json({ message: `Songs added to playlist: ${playlist_name}`, result });
+    } catch (error) {
+        console.error('Error adding songs:', error);
+        return res.status(500).json({ error: 'An error occurred while adding songs' });
+    }
+});
+
+
+app.post('/get_playlists', async (req, res) => {
+    const { collection2 } = await connection();
+    const user_id = req.body.userId;
+
+    try {
+        const playlists = await collection2.find({ user_id }).toArray();
+
+        if (playlists.length === 0) {
+            return res.status(404).json({ message: 'No playlists found for this user' });
+        }
+
+        // Map over the playlists to get the desired structure
+        const response = playlists.map(playlist => ({
+            playlist_name: playlist.playlist_name,
+            songs: playlist.songs.map(song => ({
+                name: song.name,      
+                artist: song.artist,  
+                url: song.url         
+            }))
+        }));
+
+        return res.json(response); 
+    } catch (error) {
+        console.error('Error fetching playlists:', error);
+        return res.status(500).json({ error: 'An error occurred while fetching playlists' });
+    }
+});
+
+
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
 
 
-// // Test function for user registration
-// async function generateResponse(userData) {
-//     const response = await fetch('http://localhost:3000/reg_login_users', {
+//testing to get songs.
 
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(userData),
-//     });
-//     const data = await response.json();
-//     return data;
-// }
+// Test function for user registration
+async function generateResponse(userData) {
+    const response = await fetch('http://localhost:3001/get_playlists', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+    });
+    
+    // Assuming response is successful, parse the JSON
+    const data = await response.json();
+    return data;
+}
 
-// // Example data to test user registration
+// Example data to test getting playlists
+generateResponse({
+    userId: "jainam",
+})
+.then(data => {
+    // No need to call response.json() again
+    data.forEach(playlist => {
+        console.log(`Playlist: ${playlist.playlist_name}`);
+        playlist.songs.forEach(song => {
+            console.log(`Song: ${song.name}, Artist: ${song.artist}, URL: ${song.url}`);
+        });
+    });
+})
+.catch(error => console.error('Error:', error));
+
+/*
+get playlists
+add songs
+
+get songs in playlist(potentially own method)
+*/
+
 // generateResponse({
 //     username: "j.shah220",
 //     firstname: "Jainam",
@@ -115,3 +209,27 @@ app.listen(port, () => {
 // })
 // .then(result => console.log(result))
 // .catch(error => console.error('Error:', error));
+
+
+// extra api key, not important
+// app.post('/create_playlist', async (req, res)=>{
+//     const { collection2 } = await connection();
+
+    
+//     const newPlayList = {
+//         user_id: req.body.userId,
+//         songs: [],
+//         playlist_name: req.body.playlist_name,
+//         created: new Date()
+//     }
+
+//     const existingPlaylist = await collection2.findOne({ playlist_name: newPlayList.playlist_name})
+
+//     if (existingPlaylist){
+//         return res.response(400).json({ error: "playlist name already exists"})
+//     }else{
+//         const result = await collection2.insertOne({newPlayList})
+//         return res.json({ message: `New playlist named ${newPlayList.playlist_name} was created`})
+//     }
+
+// });
