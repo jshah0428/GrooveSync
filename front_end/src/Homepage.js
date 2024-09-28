@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Homepage.css";
 import { useAuth0 } from "@auth0/auth0-react";
+import QuestionAnswerBox from './gptQuestions';
 
 const HomePage = () => {
   const [popupInfo, setPopupInfo] = useState({ visible: false, content: "" });
@@ -19,6 +20,10 @@ const HomePage = () => {
     "Studio 54 was a famous disco club in NYC.",
     "Disco influenced the development of electronic dance music."
   ];
+
+  const history = [
+
+  ]
 
   const getRandomColorAndFact = () => {
     const colors = [
@@ -84,11 +89,22 @@ const HomePage = () => {
 
       <div className="info-box">
         <h1>Groove Sync</h1>
-        <p>Click the tiles for some Disco Facts!</p>
-        <p>Click the tiles for some Disco Facts!</p>
-      </div>
+        <h2>Click the tiles for some Disco Facts!</h2>
+        <h2>Brief History of Disco</h2>
+        <p>Disco is a genre of dance music that emerged in the early 1970s and became a dominant force in popular music by the mid-1970s. It originated in the United States, particularly in urban areas like New York City, and was heavily influenced by funk, soul, and Latin music. Disco is characterized by a steady four-on-the-floor beat, syncopated basslines, and orchestral elements such as strings and horns.</p>
+        <p><strong>Key Milestones in Disco History:</strong></p>
+        <ul>
+          <li><strong>Early 1970s:</strong> Disco began in underground clubs where DJs played a mix of funk, soul, and Latin music. These clubs were often frequented by marginalized communities, including African Americans, Latinos, and the LGBTQ+ community.</li>
+          <li><strong>Mid-1970s:</strong> Disco gained mainstream popularity with hits like "Love to Love You Baby" by Donna Summer and "The Hustle" by Van McCoy. The release of the film "Saturday Night Fever" in 1977, featuring John Travolta and the music of the Bee Gees, catapulted disco into the global spotlight.</li>
+          <li><strong>Late 1970s:</strong> Disco reached its peak with numerous chart-topping hits and the rise of iconic artists such as Donna Summer, the Bee Gees, Gloria Gaynor, and Chic. Famous disco clubs like Studio 54 in New York City became cultural landmarks.</li>
+          <li><strong>Early 1980s:</strong> Disco's popularity began to wane due to a backlash against the genre, epitomized by events like the "Disco Demolition Night" in 1979. Despite the decline in mainstream popularity, disco continued to influence other genres, including electronic dance music (EDM) and house music.</li>
+          <li><strong>Legacy:</strong> Disco's influence can still be seen in modern music, fashion, and culture. Its emphasis on danceability and rhythm laid the groundwork for many contemporary dance genres.</li>
+        </ul>
+        </div>
       <div className="gpt-box">
-        <p>Powered by Groove Sync</p>
+        <h1>GROOVY ???</h1>
+        <QuestionAnswerBox />
+
       </div>
 
       {popupInfo.visible && (
