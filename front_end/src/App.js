@@ -1,8 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-
+import Homepage from './Homepage';
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -19,7 +18,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<PrivateRoute>Home</PrivateRoute>} />
+        <Route path="/" element={<Homepage />} />
       </Routes>
     </div>
   );
