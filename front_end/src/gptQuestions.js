@@ -8,7 +8,7 @@ const QuestionAnswerBox = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3000/generate_homepage', {
+            const response = await fetch('http://localhost:3001/generate_homepage', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,6 +30,7 @@ const QuestionAnswerBox = () => {
             setAnswer('');
         }
     };
+
 
     return (
         <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>

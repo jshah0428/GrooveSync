@@ -1,6 +1,8 @@
 const express = require('express');
 const Anthropic = require('@anthropic-ai/sdk');
 require('dotenv').config();
+const cors = require('cors'); // Import the cors package
+
 
 const app = express();
 const port = 3001; 
@@ -24,6 +26,9 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send('Welcome to the API! Use /generate_homepage and /reg_login_users endpoints.');
 });
+
+app.use(cors()); // Use the cors middleware
+
 
 app.post('/generate_homepage', async (req, res) => {
     const { prompt } = req.body;
