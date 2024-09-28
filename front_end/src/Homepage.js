@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "./Homepage.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const HomePage = () => {
   const [popupInfo, setPopupInfo] = useState({ visible: false, content: "" });
+  const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0();
+  console.log(user);
 
   const handleTileClick = (index) => {
     setPopupInfo({
@@ -40,13 +43,20 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      <h1>Welcome to the Groovy Sync</h1>
+      <div className="header-container">
+        <h1>Welcome to the Groovy Sync</h1>
+        {isAuthenticated && <span className="z-10">{user.name}</span>}
+        {isAuthenticated ? <button className="login-button" onClick={() => logout()}>Logout</button> :
+          <button onClick={() => loginWithRedirect()} className="login-button">Log In</button>}
+
+      </div>
       <p>Hover over the tiles for some Disco Facts!</p>
+
       <div className="room">
         <div className="disco-ball">
           <div className="light-beam"></div>
           <div className="light-beam"></div>
-  
+
         </div>
         <div className="wall wall-back"></div>
         <div className="wall wall-left"></div>
