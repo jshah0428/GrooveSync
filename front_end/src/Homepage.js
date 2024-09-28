@@ -84,8 +84,12 @@ const HomePage = () => {
 
 
       <div className="info-box">
-        <h1>Welcome to the Groovy Sync</h1>
+        <h1>Groove Sync</h1>
         <p>Click the tiles for some Disco Facts!</p>
+        <p>Click the tiles for some Disco Facts!</p>
+      </div>
+      <div className="gpt-box">
+        <p>Powered by Groove Sync</p>
       </div>
 
       {popupInfo.visible && (
