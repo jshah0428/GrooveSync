@@ -17,11 +17,15 @@ body {
   top: 10px; 
   width: 100px;
   height: 100px;
-  background: radial-gradient(circle, #ccc, #999);
+  background: radial-gradient(circle, #ffffff, #999);
   border-radius: 50%;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 20px rgba(67, 67, 67, 0.5),
+              0 0 30px rgba(255, 255, 255, 0.7), /* Additional glow */
+              0 0 50px rgba(255, 255, 255, 0.9); /* Stronger glow */
   animation: spin 7s linear infinite;
   overflow: hidden;
+  z-index: 30;
+
 }
 
 .disco-ball::before,
@@ -47,39 +51,40 @@ body {
   animation-delay: 0.5s;
 }
 
-.disco-ball .light-beam {
+.light-beam {
   position: absolute;
-  width: 4px;
-  height: 1000px;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
-  top: 50%;
-  left: 50%;
+  opacity: 50%;
+  width: 0;
+  height: 0;
+  border-left: 70px solid transparent;
+  border-right: 70px solid transparent;
+  border-bottom: 1400px solid rgba(255, 255, 255, 0.8);
+  top: 30px; 
+  left: calc(50% - 50px); 
   transform-origin: top;
-  animation: beam 2s linear infinite;
+  z-index: 20;
+  filter: blur(5px);
 }
 
-.disco-ball .light-beam:nth-child(1) {
+.beam1 {
   transform: rotate(0deg);
+  animation: rotate 10s linear infinite alternate;
 }
 
-.disco-ball .light-beam:nth-child(2) {
+.beam2 {
   transform: rotate(30deg);
+  animation: rotate 12s linear infinite alternate;
 }
 
-.disco-ball .light-beam:nth-child(3) {
+.beam3 {
   transform: rotate(60deg);
+  animation: rotate 15s linear infinite alternate;
 }
 
-.disco-ball .light-beam:nth-child(4) {
-  transform: rotate(90deg);
-}
 
-.disco-ball .light-beam:nth-child(5) {
-  transform: rotate(120deg);
-}
-
-.disco-ball .light-beam:nth-child(6) {
-  transform: rotate(150deg);
+.beam4 {
+  transform: rotate(60deg);
+  animation: rotate 17s linear infinite alternate;
 }
 
 @keyframes spin {
@@ -90,6 +95,16 @@ body {
     transform: rotate(360deg);
   }
 }
+
+@keyframes rotate {
+  0% {
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
 
 @keyframes sparkle {
   0%, 100% {
@@ -102,14 +117,7 @@ body {
   }
 }
 
-@keyframes beam {
-  0%, 100% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-}
+
 
 .room {
   position: relative;

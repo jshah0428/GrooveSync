@@ -43,11 +43,12 @@ const HomePage = () => {
       <h1>Welcome to the Groovy Sync</h1>
       <p>Hover over the tiles for some Disco Facts!</p>
       <div className="room">
-        <div className="disco-ball">
-          <div className="light-beam"></div>
-          <div className="light-beam"></div>
-  
-        </div>
+        <div className="disco-ball"></div>
+        <div className="light-beam beam1"></div>
+        <div className="light-beam beam2"></div>
+        <div className="light-beam beam3"></div>
+        <div className="light-beam beam4"></div>
+        
         <div className="wall wall-back"></div>
         <div className="wall wall-left"></div>
         <div className="wall wall-right"></div>
