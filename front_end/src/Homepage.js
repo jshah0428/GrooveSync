@@ -62,13 +62,11 @@ const HomePage = () => {
   return (
     <div className="homepage">
       <div className="header-container">
-        <h1>Welcome to the Groovy Sync</h1>
         {isAuthenticated && <span className="z-10">{user.name}</span>}
         {isAuthenticated ? <button className="login-button" onClick={() => logout()}>Logout</button> :
           <button onClick={() => loginWithRedirect()} className="login-button">Log In</button>}
-
       </div>
-      <p>Hover over the tiles for some Disco Facts!</p>
+
 
       <div className="room">
         <div className="disco-ball"></div>
@@ -78,10 +76,18 @@ const HomePage = () => {
         <div className="light-beam beam4"></div>
         
         <div className="wall wall-back"></div>
-        <div className="wall wall-left"></div>
+        <div className="wall wall-left">
+        </div>
         <div className="wall wall-right"></div>
         <div className="floor">{tiles}</div>
       </div>
+
+
+      <div className="info-box">
+        <h1>Welcome to the Groovy Sync</h1>
+        <p>Click the tiles for some Disco Facts!</p>
+      </div>
+
       {popupInfo.visible && (
         <div className="popup">
           <div className="popup-content">

@@ -15,16 +15,22 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 95%;
   height: 60px; /* Height for the header */
   padding: 0 20px; /* Horizontal padding for the header */
   box-sizing: border-box; /* Include padding in total width */
   overflow: hidden; /* Prevents any overflow */
+  background-color: rgb(42, 0, 65);
+  border-radius: 10px;
+  z-index: 100;
+  margin: 20px auto;
+  position: relative;
+  box-shadow: #00bfff 0 0 20px 5px; /* Neon teal glow */
 }
 
 h1 {
   flex-grow: 1; /* Allows h1 to take available space */
-  margin: 0; /* Removes default margin */
+  margin: 20px; /* Removes default margin */
   text-align: center; /* Centers text for the h1 */
 }
 
@@ -32,7 +38,7 @@ h1 {
   position: relative; /* Allow z-index to work */
   z-index: 10; /* Bring to front */
   margin-left: auto; /* Ensures button stays at the end */
-  background: linear-gradient(45deg, #cf95a8, rgb(94 75 0));
+  background: linear-gradient(45deg, #f6f2ff, rgb(255, 182, 237));
   color: white; /* Text color */
   border: none; /* Removes default border */
   border-radius: 25px; /* Rounded corners */
@@ -67,13 +73,12 @@ h1 {
 .homepage {
   text-align: center;
   position: relative;
-  z-index: 1;
   /* Ensure content is above the wall */
 }
 
 .disco-ball {
   position: absolute;
-  top: 0;
+  top: 100px;
   width: 100px;
   height: 100px;
   background: radial-gradient(circle, #ffffff, #999);
@@ -118,7 +123,7 @@ h1 {
   border-left: 70px solid transparent;
   border-right: 70px solid transparent;
   border-bottom: 1400px solid rgba(255, 255, 255, 0.8);
-  top: 30px; 
+  top: 110px; 
   left: calc(50% - 50px); 
   transform-origin: top;
   z-index: 20;
@@ -180,39 +185,57 @@ h1 {
   }
 }
 
+.info-box {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 10; /* Ensure the box is above the walls */
+  text-align: center;
+  height: 200px;
+}
+
 
 .room {
   position: relative;
-  width: 750px;
-  height: 750px;
+  width: 95%;
+  height: 90%;
   margin: 0 auto;
-  perspective: 400px;
+  perspective: 700px;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: #00bfff 0 0 10px 5px; /* Neon teal glow */
 }
 
 .wall {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: purple;
+  background-color: rgb(45, 0, 80);
+  box-shadow: 0 20px 100px rgba(0, 255, 255, 0.7); /* Add blue glow */
 }
 
 .wall-back {
-  transform: rotateY(0deg) translateZ(-125px);
-  background-color: rgb(94, 0, 94);
-  height: 70%;
+  transform: rotateY(0deg) translateZ(-800px);
+  background-color: rgb(42, 0, 65);
+  height: 90%;
 }
 
 .wall-left {
   transform: rotateY(90deg) translateZ(-125px);
-  left: -250px;
+  left: -500px;
 }
 
 .wall-right {
   transform: rotateY(-90deg) translateZ(-125px);
-  right: -250px;
+  right: -500px;
 }
 
 
@@ -220,7 +243,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(10, 75px);
   grid-template-rows: repeat(10, 75px);
-  transform: rotateX(90deg) translateZ(-125px);
+  transform: rotateX(90deg) translateZ(-180px);
 }
 
 .tile {
@@ -272,10 +295,14 @@ h1 {
 
 .popup-content {
   background-color: white;
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+  
   color: black;
   padding: 20px;
   border-radius: 10px;
   position: relative;
+  opacity: .8;
 }
 
 .close {
@@ -284,4 +311,7 @@ h1 {
   right: 10px;
   font-size: 20px;
   cursor: pointer;
+  border: 1px solid blue;
+  padding: 5px;
+  border-radius: 100%;
 }
