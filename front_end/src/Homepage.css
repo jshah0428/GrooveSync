@@ -192,7 +192,32 @@ h1 {
   }
 }
 
+.info-box::-webkit-scrollbar,
+.gpt-box::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+  display: none; /* Hide scrollbar by default */
+}
+
+.info-box:hover::-webkit-scrollbar,
+.gpt-box:hover::-webkit-scrollbar {
+  display: block; /* Show scrollbar on hover */
+}
+
+.info-box::-webkit-scrollbar-track,
+.gpt-box::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2); /* Background of the scrollbar track */
+  border-radius: 10px; /* Rounded corners for the track */
+}
+
+.info-box::-webkit-scrollbar-thumb,
+.gpt-box::-webkit-scrollbar-thumb {
+  background: #00bfff; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the thumb */
+  border: 3px solid rgba(0, 0, 0, 0.2); /* Border around the thumb */
+}
+
 .info-box {
+  padding: 50px;
   position: absolute;
   top: 50%;
   left: 20%;
@@ -203,13 +228,15 @@ h1 {
   border-radius: 10px;
   z-index: 10; /* Ensure the box is above the walls */
   text-align: center;
-  height: 200px;
+  max-height: 400px;
+  max-width: 400px;
+  overflow: auto; /* Add scrollbar when necessary */
 }
 
 .gpt-box {
   position: absolute;
   top: 50%;
-  left: 20%;
+  right: 0%;
   transform: translate(-50%, -50%);
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
@@ -217,9 +244,10 @@ h1 {
   border-radius: 10px;
   z-index: 10; /* Ensure the box is above the walls */
   text-align: center;
-  height: 200px;
+  max-height: 400px;
+  max-width: 400px;
+  overflow: auto; /* Add scrollbar when necessary */
 }
-
 
 .room {
   position: relative;
