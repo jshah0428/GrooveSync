@@ -7,6 +7,11 @@ body {
   background-color: black;
 }
 
+@font-face {
+  font-family: 'Disco';
+  src: url('SummerFavourite-ARLr6.ttf') format('truetype');
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -29,6 +34,8 @@ body {
 }
 
 h1 {
+  font-family: Disco;
+  font-size: 70px;
   flex-grow: 1; /* Allows h1 to take available space */
   margin: 20px; /* Removes default margin */
   text-align: center; /* Centers text for the h1 */
@@ -38,7 +45,7 @@ h1 {
   position: relative; /* Allow z-index to work */
   z-index: 10; /* Bring to front */
   margin-left: auto; /* Ensures button stays at the end */
-  background: linear-gradient(45deg, #f6f2ff, rgb(255, 182, 237));
+  background: linear-gradient(45deg, #190052, rgb(255, 182, 237));
   color: white; /* Text color */
   border: none; /* Removes default border */
   border-radius: 25px; /* Rounded corners */
@@ -186,6 +193,20 @@ h1 {
 }
 
 .info-box {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 10; /* Ensure the box is above the walls */
+  text-align: center;
+  height: 200px;
+}
+
+.gpt-box {
   position: absolute;
   top: 50%;
   left: 20%;
