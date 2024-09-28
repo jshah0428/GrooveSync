@@ -3,7 +3,7 @@ const Anthropic = require('@anthropic-ai/sdk');
 require('dotenv').config();
 
 const app = express();
-const port = 3000; 
+const port = 3001; 
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = `mongodb+srv://jainamshah0428:${process.env.db_password}@girlhackscluster.3r5xk.mongodb.net/?retryWrites=true&w=majority&appName=girlhackscluster`;
@@ -86,9 +86,11 @@ app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
 
+
 // // Test function for user registration
 // async function generateResponse(userData) {
 //     const response = await fetch('http://localhost:3000/reg_login_users', {
+
 //         method: 'POST',
 //         headers: {
 //             'Content-Type': 'application/json',

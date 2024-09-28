@@ -2,19 +2,90 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   color: white;
-  overflow: hidden; /* Prevent scrolling */
+  overflow: hidden;
+  /* Prevent scrolling */
   background-color: black;
+}
+
+@font-face {
+  font-family: 'Disco';
+  src: url('SummerFavourite-ARLr6.ttf') format('truetype');
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  height: 60px; /* Height for the header */
+  padding: 0 20px; /* Horizontal padding for the header */
+  box-sizing: border-box; /* Include padding in total width */
+  overflow: hidden; /* Prevents any overflow */
+  background-color: rgb(42, 0, 65);
+  border-radius: 10px;
+  z-index: 100;
+  margin: 20px auto;
+  position: relative;
+  box-shadow: #00bfff 0 0 20px 5px; /* Neon teal glow */
+}
+
+h1 {
+  font-family: Disco;
+  font-size: 70px;
+  flex-grow: 1; /* Allows h1 to take available space */
+  margin: 20px; /* Removes default margin */
+  text-align: center; /* Centers text for the h1 */
+}
+
+.login-button {
+  position: relative; /* Allow z-index to work */
+  z-index: 10; /* Bring to front */
+  margin-left: auto; /* Ensures button stays at the end */
+  background: linear-gradient(45deg, #190052, rgb(255, 182, 237));
+  color: white; /* Text color */
+  border: none; /* Removes default border */
+  border-radius: 25px; /* Rounded corners */
+  padding: 10px 20px; /* Padding around the text */
+  font-size: 16px; /* Font size */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Changes cursor to pointer */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for effects */
+  box-shadow: 0 5px 15px rgba(255, 0, 85, 0.5); /* Shadow effect */
+}
+
+.login-button:hover {
+  transform: scale(1.1); /* Scale up on hover */
+  box-shadow: 0 8px 20px rgba(255, 0, 85, 0.7); /* Darker shadow on hover */
+}
+
+.login-button:active {
+  transform: scale(0.95); /* Scale down when clicked */
+}
+
+/* Ensure button does not go outside the window */
+@media (max-width: 600px) {
+  .header-container {
+    padding: 0 10px; /* Reduced padding for smaller screens */
+  }
+
+  .login-button {
+    padding: 8px 16px; /* Adjust button padding */
+  }
 }
 
 .homepage {
   text-align: center;
   position: relative;
-  z-index: 1; /* Ensure content is above the wall */
+  /* Ensure content is above the wall */
 }
 
 .disco-ball {
   position: absolute;
-  top: 10px; 
+  top: 100px;
   width: 100px;
   height: 100px;
   background: radial-gradient(circle, #ffffff, #999);
@@ -59,7 +130,7 @@ body {
   border-left: 70px solid transparent;
   border-right: 70px solid transparent;
   border-bottom: 1400px solid rgba(255, 255, 255, 0.8);
-  top: 30px; 
+  top: 110px; 
   left: calc(50% - 50px); 
   transform-origin: top;
   z-index: 20;
@@ -91,6 +162,7 @@ body {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -107,50 +179,84 @@ body {
 
 
 @keyframes sparkle {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0;
     transform: scale(0.5);
   }
+
   50% {
     opacity: 1;
     transform: scale(1.5);
   }
 }
 
+.info-box {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 10; /* Ensure the box is above the walls */
+  text-align: center;
+  height: 200px;
+}
+
+.gpt-box {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 10; /* Ensure the box is above the walls */
+  text-align: center;
+  height: 200px;
+}
 
 
 .room {
   position: relative;
-  width: 750px;
-  height: 750px;
+  width: 95%;
+  height: 90%;
   margin: 0 auto;
-  perspective: 400px;
+  perspective: 700px;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: #00bfff 0 0 10px 5px; /* Neon teal glow */
 }
 
 .wall {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: purple;
+  background-color: rgb(45, 0, 80);
+  box-shadow: 0 20px 100px rgba(0, 255, 255, 0.7); /* Add blue glow */
 }
 
 .wall-back {
-  transform: rotateY(0deg) translateZ(-125px);
-  background-color: rgb(94, 0, 94);
-  height : 70%;
+  transform: rotateY(0deg) translateZ(-800px);
+  background-color: rgb(42, 0, 65);
+  height: 90%;
 }
 
 .wall-left {
   transform: rotateY(90deg) translateZ(-125px);
-  left: -250px;
+  left: -500px;
 }
 
 .wall-right {
   transform: rotateY(-90deg) translateZ(-125px);
-  right: -250px;
+  right: -500px;
 }
 
 
@@ -158,7 +264,7 @@ body {
   display: grid;
   grid-template-columns: repeat(10, 75px);
   grid-template-rows: repeat(10, 75px);
-  transform: rotateX(90deg) translateZ(-125px);
+  transform: rotateX(90deg) translateZ(-180px);
 }
 
 .tile {
@@ -169,21 +275,24 @@ body {
   cursor: pointer;
   transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
   border: 3px solid black;
-  box-shadow: 0 0 10px 2px rgba(0, 255, 255, 0.7); /* Neon teal glow */
+  box-shadow: 0 0 10px 2px rgba(0, 255, 255, 0.7);
+  /* Neon teal glow */
 }
 
 .tile:hover {
-  background-color: #00bfff; /* Teal blue color */
-  box-shadow: 0 0 20px 5px rgba(0, 255, 255, 1); /* Stronger teal blue glow on hover */
+  background-color: #00bfff;
+  /* Teal blue color */
+  box-shadow: 0 0 20px 5px rgba(0, 255, 255, 1);
+  /* Stronger teal blue glow on hover */
 }
 
 .tile-info {
   display: none;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 100%;
+  left: 100%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #00bfff;
   color: white;
   padding: 5px;
   border-radius: 5px;
@@ -207,10 +316,14 @@ body {
 
 .popup-content {
   background-color: white;
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+  
   color: black;
   padding: 20px;
   border-radius: 10px;
   position: relative;
+  opacity: .8;
 }
 
 .close {
@@ -219,4 +332,7 @@ body {
   right: 10px;
   font-size: 20px;
   cursor: pointer;
+  border: 1px solid blue;
+  padding: 5px;
+  border-radius: 100%;
 }
