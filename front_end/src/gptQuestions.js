@@ -36,7 +36,7 @@ const QuestionAnswerBox = () => {
         <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="question">Question:</label>
+                    <label htmlFor="question">What would you like to know?</label>
                     <input
                         type="text"
                         id="question"
@@ -49,13 +49,13 @@ const QuestionAnswerBox = () => {
                 <button type="submit" style={{ padding: '10px 20px' }}>Submit</button>
             </form>
             {answer && (
-                <div style={{ marginTop: '20px', padding: '10px', backgroundColor: '#f0f0f0' }}>
+                <div style={{ marginTop: '20px', padding: '10px', backgroundColor: 'rgb(42, 0, 65)' }}>
                     <h2>Answer:</h2>
                     <p>{answer}</p>
                 </div>
             )}
             {error && (
-                <div style={{ marginTop: '20px', padding: '10px', backgroundColor: '#f8d7da', color: '#721c24' }}>
+                <div style={{ marginTop: '20px', padding: '10px', backgroundColor: '#f8d7da', color: 'rgb(42, 0, 65)' }}>
                     <h2>Error:</h2>
                     <p>{error}</p>
                 </div>
