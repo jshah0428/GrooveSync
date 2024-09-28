@@ -15,8 +15,9 @@ const PrivateRoute = ({ children }) => {
 
 
 function App() {
+
   return (
-    <div className="App">
+    <div className="App">      
       <Routes>
         <Route path="/" element={<Homepage />} />
       </Routes>
@@ -25,3 +26,4 @@ function App() {
 }
 
 export default App;
+
