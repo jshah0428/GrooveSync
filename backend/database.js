@@ -45,7 +45,9 @@ async function insert(username, password, firstname, lastname, email) {
     }
 }
 
-
+//song url song name 
+//create playlist - just playlist name  
+//add song in a play - song name and url. 
 
 main();
 
