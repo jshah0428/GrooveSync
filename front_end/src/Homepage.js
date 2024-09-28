@@ -72,7 +72,6 @@ const HomePage = () => {
           <button onClick={() => loginWithRedirect()} className="login-button">Log In</button>}
       </div>
 
-
       <div className="room">
         <div className="disco-ball"></div>
         <div className="light-beam beam1"></div>
