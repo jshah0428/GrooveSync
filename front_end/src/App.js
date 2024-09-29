@@ -7,6 +7,8 @@ import MusicalCareerGame from './MusicalCareerGame';
 import Splash from './Splash';
 import "./App.css"; // Import the CSS file for transitions
 
+import Playlist from './playlist';
+
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -45,6 +47,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/disco" element={<Homepage />} />
+        <Route path="/playlist" element={<Playlist />} />
         <Route path="/musical-career-game" element={<MusicalCareerGame />} />
       </Routes>
       </CSSTransition>

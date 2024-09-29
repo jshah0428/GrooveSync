@@ -1,45 +1,96 @@
 import React, { useState } from 'react';
+import Loader from './loader';
 
 export default function MusicalCareerGame() {
   const [prompt, setPrompt] = useState('');
   const [options, setOptions] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [story, setStory] = useState(''); // New state to store the combined story
   const [isGameActive, setIsGameActive] = useState(true);
-  const [stage, setStage] = useState(0); // New state to track the stage of the game
+  const [stage, setStage] = useState(0); // Track the stage of the game
+  const [selectedOption, setSelectedOption] = useState(null); // Added state to track selected option
+  const [loading, setLoading] = useState(false); // New state for loading status
 
-  // Static data for the game options
-  const staticOptions = {
-    0: [
-      "Join a rock band as a lead guitarist",
-      "Start producing electronic dance music"
-    ],
-    1: [
-      "Record a live album with a band",
-      "Collaborate with a famous pop artist"
-    ],
-    2: [
-      "Tour internationally as a headliner",
-      "Compose music for a major film"
-    ]
+
+  // Function to handle prompt submission and fetch options from OpenAI
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const response1 = await fetch('http://localhost:3001/generate_homepage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: `Start a story ${prompt} for 3 lines` }),
+      });
+      const data1 = await response1.json();
+
+      const response2 = await fetch('http://localhost:3001/generate_homepage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: `Continue the story : ${prompt}` }),
+      });
+      const data2 = await response2.json();
+
+      // Set the options based on the responses from OpenAI
+      setOptions([data1.result, data2.result]);
+      setStory(`Artist: ${prompt}. Story: ${data1.result} `); // Start the story
+      setStage(1); // Set stage to 1
+      setSelectedOption(null); // Reset selected option
+    } catch (error) {
+      console.error('Error fetching from OpenAI:', error);
+    }
+    finally {
+      setLoading(false); // Set loading to false regardless of the outcome
+    }
+
   };
 
-  // Function to handle prompt submission and load the initial static options
-  const handleSubmit = () => {
-    setOptions(staticOptions[0]); // Load the initial options
-    setSelectedOption(null);
-    setStage(0); // Reset to the first stage
-  };
-
-  // Function to handle option selection and move to the next set of static options
+  // Function to handle option selection and merge it into the story
   const handleOptionSelect = (option) => {
-    setSelectedOption(option);
-    
-    if (stage < 2) {
-      setStage(stage + 1); // Move to the next stage
-      setOptions(staticOptions[stage + 1]); // Set the next options
+    setStory((prev) => `${prev} ${option}`); // Merge the selected option into the story
+    setStage((prev) => prev + 1); // Increment the stage
+
+    // Fetch new options for the next stage
+    if (stage < 4) {
+      // Fetch new options for the next stage
+      fetchNewOptions(prompt);
     } else {
       // End the game when the last stage is reached
       setOptions([]);
+      setIsGameActive(false); // End the game
+    }
+  };
+
+  // Function to fetch new options based on the current stage
+  const fetchNewOptions = async (artist) => {
+    setLoading(true);
+    try {
+      const response1 = await fetch('http://localhost:3001/generate_homepage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: `Generate an option for the artist: ${artist}` }),
+      });
+      const data1 = await response1.json();
+
+      const response2 = await fetch('http://localhost:3001/generate_homepage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: `Generate another option for the artist: ${artist}` }),
+      });
+      const data2 = await response2.json();
+
+      // Set the new options based on the responses
+      setOptions([data1.result, data2.result]);
+    } catch (error) {
+      console.error('Error fetching from OpenAI:', error);
+    } finally {
+      setLoading(false); // Set loading to false regardless of the outcome
     }
   };
 
@@ -53,20 +104,20 @@ export default function MusicalCareerGame() {
   return (
     <div className="game-container" style={styles.container}>
       <h1>Musical Career Game</h1>
-
+      <Loader loading={loading} />
       {isGameActive && (
         <>
-          {!selectedOption && (
+          {!options.length && !selectedOption && (
             <div style={styles.inputSection}>
               <input
                 type="text"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Enter your prompt"
+                placeholder="Enter the artist's name"
                 style={styles.input}
               />
-              <button onClick={handleSubmit} style={styles.button}>
-                Generate Options
+              <button onClick={handleSubmit} style={styles.button} disabled={loading}>
+                {loading ? 'Loading...' : 'Generate Options'}
               </button>
             </div>
           )}
@@ -85,13 +136,15 @@ export default function MusicalCareerGame() {
             </div>
           )}
 
+          <p>{story}</p>
+
           <button onClick={handleStop} style={styles.stopButton}>
             Stop
           </button>
         </>
       )}
 
-      {!isGameActive && <p>Game Over. You stopped the game!</p>}
+      {!isGameActive && <p>Game Over. Your final story: {story}</p>}
     </div>
   );
 }
