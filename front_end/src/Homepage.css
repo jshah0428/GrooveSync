@@ -25,12 +25,12 @@ body {
   padding: 0 20px; /* Horizontal padding for the header */
   box-sizing: border-box; /* Include padding in total width */
   overflow: hidden; /* Prevents any overflow */
-  background-color: rgb(42, 0, 65);
+  background-color: #101872;
   border-radius: 10px;
   z-index: 100;
   margin: 20px auto;
   position: relative;
-  box-shadow: #00bfff 0 0 20px 5px; /* Neon teal glow */
+  box-shadow: #8742b0 0 0 1px 1px; /* Neon teal glow */
 }
 
 h1 {
@@ -47,7 +47,7 @@ h1 {
   z-index: 10; /* Bring to front */
   margin-left: auto; /* Ensures button stays at the end */
   color: white; /* Text color */
-  background-color: rgb(42, 0, 65);
+  background: none;
   border: none; /* Removes default border */
   border-radius: 25px; /* Rounded corners */
   padding: 10px 20px; /* Padding around the text */
@@ -81,15 +81,34 @@ h1 {
 .homepage {
   text-align: center;
   position: relative;
-  /* Ensure content is above the wall */
+}
+
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Ensure the video doesn't interfere with other elements */
+  z-index: -1; /* Place the video behind other elements */
+  overflow: hidden; /* Hide overflow */
+}
+
+.video-background iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 56.25vw; /* 16:9 aspect ratio */
+  transform: translate(-50%, -50%);
 }
 
 .disco-ball {
   position: absolute;
-  top: 100px;
+  top: 200px;
   width: 100px;
   height: 100px;
-  background: radial-gradient(circle, #ffffff, #999);
+  background: radial-gradient(circle, #ffffff, #c3c3c3);
   border-radius: 50%;
   box-shadow: 0 0 20px rgba(67, 67, 67, 0.5),
               0 0 30px rgba(255, 255, 255, 0.7), /* Additional glow */
@@ -131,7 +150,7 @@ h1 {
   border-left: 70px solid transparent;
   border-right: 70px solid transparent;
   border-bottom: 1400px solid rgba(255, 255, 255, 0.8);
-  top: 110px; 
+  top: 210px; 
   left: calc(50% - 50px); 
   transform-origin: top;
   z-index: 20;
@@ -266,20 +285,20 @@ h1 {
   align-items: center;
   overflow: hidden;
   border-radius: 20px;
-  box-shadow: #00bfff 0 0 10px 5px; /* Neon teal glow */
+  box-shadow: #8742b0 0 0 1px 1px; /* Neon teal glow */
 }
 
 .wall {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgb(45, 0, 80);
+  background-color: #4e1897;
   box-shadow: 0 20px 100px rgba(0, 255, 255, 0.7); /* Add blue glow */
 }
 
 .wall-back {
   transform: rotateY(0deg) translateZ(-800px);
-  background-color: rgb(42, 0, 65);
+  background-color: #101872;
   height: 90%;
 }
 
@@ -309,7 +328,7 @@ h1 {
   cursor: pointer;
   transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
   border: 3px solid black;
-  box-shadow: 0 0 10px 2px rgba(0, 255, 255, 0.7);
+  box-shadow: 0 0 10px 5px rgba(0, 255, 255, 0.7);
   /* Neon teal glow */
 }
 
