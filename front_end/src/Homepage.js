@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Homepage.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import QuestionAnswerBox from './gptQuestions';
+import { Link } from "react-router-dom"; 
 
 const HomePage = () => {
   const [popupInfo, setPopupInfo] = useState({ visible: false, content: "" });
@@ -48,7 +49,6 @@ const HomePage = () => {
         onClick={() => handleTileClick(fact)}
         style={{ backgroundColor: color }}
       >
-        <div className="tile-info"></div>
       </div>
     );
   });
@@ -85,9 +85,14 @@ const HomePage = () => {
           ></iframe>
         </div>
       <div className="header-container">
+      <Link to="/" className="text-link"> <button className="login-button">Home</button> 
+      </Link> 
+      <Link to="/musical-career-game" className="text-link"> <button className="login-button">Music Career</button> 
+      </Link> 
         {isAuthenticated && <span className="z-10">{user.name}</span>}
         {isAuthenticated ? <button className="login-button" onClick={() => logout()}>Logout</button> :
           <button onClick={() => loginWithRedirect()} className="login-button">Log In</button>}
+
       </div>
 
       <div className="room">
@@ -107,7 +112,9 @@ const HomePage = () => {
 
       <div className="info-box">
         <h1>Groove Sync</h1>
-        <h2>Click the tiles for some Disco Facts!</h2>
+        <div className="fact-container">
+        <h2>Click the tiles!</h2>
+        </div>
         <h2>Brief History of Disco</h2>
         <p>Disco is a genre of dance music that emerged in the early 1970s and became a dominant force in popular music by the mid-1970s. It originated in the United States, particularly in urban areas like New York City, and was heavily influenced by funk, soul, and Latin music. Disco is characterized by a steady four-on-the-floor beat, syncopated basslines, and orchestral elements such as strings and horns.</p>
         <p><strong>Key Milestones in Disco History:</strong></p>
@@ -120,7 +127,7 @@ const HomePage = () => {
         </ul>
         </div>
       <div className="gpt-box">
-        <h1>GROOVY ???</h1>
+        <h1>GROOVY ?</h1>
         <QuestionAnswerBox />
 
       </div>

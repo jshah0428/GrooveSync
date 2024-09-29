@@ -14,6 +14,9 @@ const Splash = () => {
         {isAuthenticated ? <button onClick={() => logout()}>Logout</button> :
           <button onClick={() => loginWithRedirect()} className="splashbutton">Log In</button>}
       </div>
+      <div className= "music">
+      <Link to="/musical-career-game" className="text-link"> <button className="splashbutton">Music Career</button> </Link>
+      </div>
       <div className="splash-content">
       <svg width="900" height="900" viewBox="0 0 900 900">
           <defs>

@@ -31,6 +31,20 @@
   transition: transform 0.3s ease; /* Smooth transition for transform property */
 }
 
+.music {
+  width: 200px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background: none;
+  text-decoration: none;
+  bottom: 80px; /* Position at the bottom */
+  left: 70px; /* Position at the right */
+  transition: transform 0.3s ease; /* Smooth transition for transform property */
+}
+
 .splashbutton {
   color: white;
   background: none;
@@ -38,6 +52,7 @@
   font-size: 40px;
   font-family: Disco;
   font-weight: 100;
+  width: 300px;
 }
 
 .splashlogin:hover {
