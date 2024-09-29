@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Loader from './loader';
+import { Link, navigate } from 'react-router-dom';
 
 export default function MusicalCareerGame() {
   const [prompt, setPrompt] = useState('');
@@ -103,6 +104,15 @@ export default function MusicalCareerGame() {
 
   return (
     <div className="game-container" style={styles.container}>
+      <div className="header-container">
+        <Link to="/" className="text-link"> <button className="login-button">Home</button></Link>
+        
+        <Link to="/disco" className="text-link"> <button className="login-button">Disco World</button>
+        </Link>
+
+        <Link to="/playlist" className="text-link"> <button className="login-button">Playlist</button>
+        </Link>
+      </div>
       
       <Loader loading={loading} />
       <h1 className='z-10'>Creat A Musical Story</h1>
