@@ -10,8 +10,8 @@ const Splash = () => {
   return (
     <div className="splash-container">
       <div className="splashlogin">
-        {isAuthenticated && <span className="z-10">{user.name}</span>}
-        {isAuthenticated ? <button onClick={() => logout()}>Logout</button> :
+        {isAuthenticated && <span className="z-10"></span>} 
+        {isAuthenticated ? <button className="splashbutton" onClick={() => logout()}>Logout</button> :
           <button onClick={() => loginWithRedirect()} className="splashbutton">Log In</button>}
       </div>
       <div className= "music">

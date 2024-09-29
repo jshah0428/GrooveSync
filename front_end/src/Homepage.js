@@ -328,9 +328,10 @@ const HomePage = () => {
             <div className="card">
               <div className="cursor-pointer ratio ratio-1x1 bg-secondary bg-opacity-25">
                 <img
-                  width={50}
+                  width={150}
                   src={song?.element?.album?.images[0]?.url || song?.element.imageUrl || 'https://thumbs.dreamstime.com/b/vector-musical-notes-music-gray-background-illustration-eps-141771086.jpg'}
-                  className="card-img-top"
+                  className="card-img-top" 
+                  style={{ borderRadius: '10px' }}
                   alt="..."
                 />
               </div>
