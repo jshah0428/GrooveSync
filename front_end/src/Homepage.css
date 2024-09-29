@@ -35,11 +35,17 @@ body {
 
 h1 {
   font-family: Disco;
-  font-weight: 100;
+  font-weight: 100 !important;
+  color: white !important;;
   font-size: 70px;
   flex-grow: 1; /* Allows h1 to take available space */
   margin: 20px; /* Removes default margin */
   text-align: center; /* Centers text for the h1 */
+}
+
+h2 {
+  color: white !important;
+  font-size: 20px !important;
 }
 
 .login-button {
@@ -365,14 +371,17 @@ h1 {
 
 .popup-content {
   background-color: white;
-  font-size: 20px;
+  font-size: 30px;
   font-family: Arial, sans-serif;
   
   color: black;
   padding: 20px;
   border-radius: 10px;
+  padding: 50px;
   position: relative;
   opacity: .8;
+  max-width: 500px;
+  box-shadow: #8742b0 0 0 5px 5px;
 }
 
 .close {
@@ -381,7 +390,6 @@ h1 {
   right: 10px;
   font-size: 20px;
   cursor: pointer;
-  border: 1px solid blue;
   padding: 5px;
   border-radius: 100%;
 }
