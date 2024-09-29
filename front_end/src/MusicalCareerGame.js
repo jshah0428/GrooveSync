@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Loader from './loader';
-import { Link, navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function MusicalCareerGame() {
   const [prompt, setPrompt] = useState('');

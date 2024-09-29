@@ -274,7 +274,7 @@ const HomePage = () => {
         </Link>
         <Link to="/musical-career-game" className="text-link"> <button className="login-button">Music Career</button>
         </Link>
-        {isAuthenticated && <span className="z-10">{user.name}</span>}
+        {isAuthenticated && <span className="z-10 login-button">{user.name}</span>}
         {isAuthenticated && <button className="login-button" onClick={() => navigate('/playlist')}>My Playlists</button>}
         {isAuthenticated ? <button className="login-button" onClick={() => logout()}>Logout</button> :
           <button onClick={() => loginWithRedirect()} className="login-button">Log In</button>}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './PlaylistPage.css';
 
 const PlaylistPage = () => {
@@ -65,6 +66,15 @@ const PlaylistPage = () => {
 
     return (
         <div className="playlist-page">
+            <div className="header-container">
+                <Link to="/" className="text-link"> <button className="login-button">Home</button></Link>
+                
+                <Link to="/disco" className="text-link"> <button className="login-button">Disco World</button>
+                </Link>
+
+                <Link to="/musical-career-game" className="text-link"> <button className="login-button">Music Career</button>
+                </Link>
+            </div>
             <h1>Your Playlists</h1>
             <div className="playlist-container">
                 {playlists.map((playlist, index) => (
