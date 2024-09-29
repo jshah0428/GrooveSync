@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./Homepage.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import QuestionAnswerBox from './gptQuestions';
+import { Link } from "react-router-dom"; 
 
 const fallbacks = [
   "https://p.scdn.co/mp3-preview/98e266fea9df84fa3e5ca84934c513211e89489b?cid=a77073181b7d48eb90003e3bb94ff88a",
@@ -69,11 +70,11 @@ const HomePage = () => {
   const getRandomColorAndFact = () => {
     const colors = [
       // Shades of purple
-      "#800080", "#8A2BE2", "#9400D3", "#9932CC", "#BA55D3", "#D8BFD8",
+      "#800080", "#8A2BE2", "#9400D3", "#9932CC", "#BA55D3", "#D8BFD8", "#e666bc", "#be3fd0",
       // Shades of blue
-      "#0000FF", "#1E90FF", "#00BFFF", "#87CEEB", "#ADD8E6", "#B0E0E6",
+      "#0000FF", "#1E90FF", "#00BFFF", "#87CEEB", "#ADD8E6", "#B0E0E6", "#8742b0",
       // Shades of white
-      "#FFFFFF", "#F8F8FF", "#FFFAFA", "#F0F8FF", "#F5F5F5", "#FFF5EE"
+      "#FFFFFF", "#F8F8FF", "#FFFAFA", "#F0F8FF", "#F5F5F5"
     ];
     const color = colors[Math.floor(Math.random() * colors.length)];
     const fact = facts[Math.floor(Math.random() * facts.length)];
@@ -89,7 +90,6 @@ const HomePage = () => {
         onClick={() => { handleTileClick(fact); fetchAndPlayRandomSong() }}
         style={{ backgroundColor: color }}
       >
-        <div className="tile-info"></div>
       </div>
     );
   });
@@ -146,12 +146,35 @@ const HomePage = () => {
     setPopupInfo({ visible: false, content: "" });
   };
 
+  const getYouTubeVideoID = (url) => {
+    const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const matches = url.match(regex);
+    return matches ? matches[1] : null;
+  };
+
+  const videoURL = "https://www.youtube.com/watch?v=Da4f95F_1b4"; // Replace with your video URL
+  const videoID = getYouTubeVideoID(videoURL);
+
   return (
     <div className="homepage">
+        <div className="video-background">
+          <iframe
+          src={`https://www.youtube.com/embed/${videoID}?autoplay=1&mute=1&loop=1&playlist=${videoID}`}
+
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            title="Background Video"
+          ></iframe>
+        </div>
       <div className="header-container">
+      <Link to="/" className="text-link"> <button className="login-button">Home</button> 
+      </Link> 
+      <Link to="/musical-career-game" className="text-link"> <button className="login-button">Music Career</button> 
+      </Link> 
         {isAuthenticated && <span className="z-10">{user.name}</span>}
         {isAuthenticated ? <button className="login-button" onClick={() => logout()}>Logout</button> :
           <button onClick={() => loginWithRedirect()} className="login-button">Log In</button>}
+
       </div>
 
       <div className="room">
@@ -171,7 +194,9 @@ const HomePage = () => {
 
       <div className="info-box">
         <h1>Groove Sync</h1>
-        <h2>Click the tiles for some Disco Facts!</h2>
+        <div className="fact-container">
+        <h2>Click the tiles!</h2>
+        </div>
         <h2>Brief History of Disco</h2>
         <p>Disco is a genre of dance music that emerged in the early 1970s and became a dominant force in popular music by the mid-1970s. It originated in the United States, particularly in urban areas like New York City, and was heavily influenced by funk, soul, and Latin music. Disco is characterized by a steady four-on-the-floor beat, syncopated basslines, and orchestral elements such as strings and horns.</p>
         <p><strong>Key Milestones in Disco History:</strong></p>
@@ -184,7 +209,7 @@ const HomePage = () => {
         </ul>
         </div>
       <div className="gpt-box">
-        <h1>GROOVY ???</h1>
+        <h1>GROOVY ?</h1>
         <QuestionAnswerBox />
 
       </div>
