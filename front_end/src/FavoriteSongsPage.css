@@ -1,0 +1,70 @@
+.favorite-songs-page {
+    padding: 20px;
+    text-align: center;
+    background-color: #000000; /* Light background color */
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333; /* Dark text color */
+}
+
+.songs-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
+    gap: 15px; /* Space between cards */
+    margin: 0 auto; /* Center the grid */
+    max-width: 1200px; /* Max width for the grid */
+}
+
+.song-card {
+    background-color: #fff; /* Card background color */
+    border: 1px solid #ddd; /* Card border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 15px; /* Inner padding */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.2s; /* Transition for hover effect */
+}
+
+.song-card:hover {
+    transform: translateY(-5px); /* Raise card on hover */
+}
+
+.song-image {
+    width: 100%; /* Full width image */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 4px; /* Rounded corners for image */
+}
+
+.song-card h3 {
+    font-size: 1.2rem; /* Title size */
+    margin: 10px 0 5px; /* Margin around title */
+    color: #333; /* Dark text color */
+}
+
+.song-card p {
+    font-size: 1rem; /* Artist name size */
+    color: #666; /* Lighter text color for artist */
+    margin: 5px 0; /* Margin around artist name */
+}
+
+.play-button {
+    background-color: #c114ed; /* Bootstrap primary color */
+    color: white; /* Button text color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Inner padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 0.9rem; /* Button text size */
+    transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.play-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.error-message {
+    color: red; /* Red color for error message */
+    margin-top: 10px; /* Margin above error message */
+}
