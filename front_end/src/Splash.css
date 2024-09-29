@@ -7,16 +7,47 @@
   background-image: url('./discobackground.avif'); /* Path to your AVIF image */
   background-size: cover; 
   background-position: center;
-  color: white; /* Text color */
   text-align: center;
   font-family: 'Roboto', sans-serif; /* Example font */
   font-weight: 200;
 }
 
+@font-face {
+  font-family: 'Disco';
+  src: url('SummerFavourite-ARLr6.ttf') format('truetype');
+}
+
+.splashlogin {
+  width: 200px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background: none;
+  text-decoration: none;
+  bottom: 20px; /* Position at the bottom */
+  left: 20px; /* Position at the right */
+  transition: transform 0.3s ease; /* Smooth transition for transform property */
+}
+
+.splashbutton {
+  color: white;
+  background: none;
+  border: none;
+  font-size: 40px;
+  font-family: Disco;
+  font-weight: 100;
+}
+
+.splashlogin:hover {
+  transform: scale(1.1); /* Scale up on hover */
+}
+
 .splash-content {
   padding: 20px;
   border-radius: 10px;
-  transform: translate(50px, 50px); /* Move left by 50px and down by 50px */
+  transform: translate(100px, -10px); /* Move left by 50px and down by 50px */
   transition: transform 0.3s ease; /* Smooth transition for transform property */
 }
 
@@ -24,24 +55,12 @@
   transform: scale(1.1) translate(50px, 50px); /* Scale by 1.1 and move left by 50px and down by 50px */
 }
 
-.fade-enter {
-  opacity: 0;
-  transform: scale(0.9);
+.text-link {
+  fill: white; /* Ensure text color is white */
+  text-decoration: none; /* Remove underline from link */
 }
 
-.fade-enter-active {
-  opacity: 1;
-  transform: scale(1);
-  transition: opacity 300ms ease-in, transform 300ms ease-in;
-}
-
-.fade-exit {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.fade-exit-active {
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 300ms ease-in, transform 300ms ease-in;
+.text-link:hover {
+  color: #ff69b4; /* Change color on hover */
+  transform: scale(1.1); /* Scale up on hover */
 }

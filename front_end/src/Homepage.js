@@ -28,11 +28,11 @@ const HomePage = () => {
   const getRandomColorAndFact = () => {
     const colors = [
       // Shades of purple
-      "#800080", "#8A2BE2", "#9400D3", "#9932CC", "#BA55D3", "#D8BFD8",
+      "#800080", "#8A2BE2", "#9400D3", "#9932CC", "#BA55D3", "#D8BFD8", "#e666bc", "#be3fd0",
       // Shades of blue
-      "#0000FF", "#1E90FF", "#00BFFF", "#87CEEB", "#ADD8E6", "#B0E0E6",
+      "#0000FF", "#1E90FF", "#00BFFF", "#87CEEB", "#ADD8E6", "#B0E0E6", "#8742b0",
       // Shades of white
-      "#FFFFFF", "#F8F8FF", "#FFFAFA", "#F0F8FF", "#F5F5F5", "#FFF5EE"
+      "#FFFFFF", "#F8F8FF", "#FFFAFA", "#F0F8FF", "#F5F5F5"
     ];
     const color = colors[Math.floor(Math.random() * colors.length)];
     const fact = facts[Math.floor(Math.random() * facts.length)];
@@ -64,8 +64,26 @@ const HomePage = () => {
     setPopupInfo({ visible: false, content: "" });
   };
 
+  const getYouTubeVideoID = (url) => {
+    const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const matches = url.match(regex);
+    return matches ? matches[1] : null;
+  };
+
+  const videoURL = "https://www.youtube.com/watch?v=Da4f95F_1b4"; // Replace with your video URL
+  const videoID = getYouTubeVideoID(videoURL);
+
   return (
     <div className="homepage">
+        <div className="video-background">
+          <iframe
+          src={`https://www.youtube.com/embed/${videoID}?autoplay=1&mute=1&loop=1&playlist=${videoID}`}
+
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            title="Background Video"
+          ></iframe>
+        </div>
       <div className="header-container">
         {isAuthenticated && <span className="z-10">{user.name}</span>}
         {isAuthenticated ? <button className="login-button" onClick={() => logout()}>Logout</button> :
