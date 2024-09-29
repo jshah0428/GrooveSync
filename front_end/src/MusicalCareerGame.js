@@ -35,7 +35,7 @@ export default function MusicalCareerGame() {
 
       // Set the options based on the responses from OpenAI
       setOptions([data1.result, data2.result]);
-      setStory(`Artist: ${prompt}. Story: ${data1.result} `); // Start the story
+      setStory(`Story: ${data1.result} `); // Start the story
       setStage(1); // Set stage to 1
       setSelectedOption(null); // Reset selected option
     } catch (error) {
@@ -72,7 +72,7 @@ export default function MusicalCareerGame() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ prompt: `Generate an option for the artist: ${artist}` }),
+        body: JSON.stringify({ prompt: `Make any story ${artist}` }),
       });
       const data1 = await response1.json();
 
@@ -81,7 +81,7 @@ export default function MusicalCareerGame() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ prompt: `Generate another option for the artist: ${artist}` }),
+        body: JSON.stringify({ prompt: `Make any story ${artist}` }),
       });
       const data2 = await response2.json();
 
@@ -103,8 +103,9 @@ export default function MusicalCareerGame() {
 
   return (
     <div className="game-container" style={styles.container}>
-      <h1>Musical Career Game</h1>
+      
       <Loader loading={loading} />
+      <h1 className='z-10'>Creat A Musical Story</h1>
       {isGameActive && (
         <>
           {!options.length && !selectedOption && (
@@ -113,7 +114,7 @@ export default function MusicalCareerGame() {
                 type="text"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Enter the artist's name"
+                placeholder="Enter the prompt to start a story"
                 style={styles.input}
               />
               <button onClick={handleSubmit} style={styles.button} disabled={loading}>

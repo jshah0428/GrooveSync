@@ -164,7 +164,7 @@ app.listen(port, () => {
 
 //testing to get songs.
 
-// Test function for user registration
+// // Test function for user registration
 // async function generateResponse(userData) {
 //     const response = await fetch('http://localhost:3001/get_playlists', {
 //         method: 'POST',
@@ -179,7 +179,7 @@ app.listen(port, () => {
 //     return data;
 // }
 
-// Example data to test getting playlists
+// // Example data to test getting playlists
 // generateResponse({
 //     userId: "jainam",
 // })

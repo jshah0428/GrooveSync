@@ -20,7 +20,7 @@ const HomePage = () => {
   const [song, setSong] = useState(null);
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isPlayListBtnVisible, setIsPlayListBtnVisible] = useState(true);
+  // const [isPlayListBtnVisible, setIsPlayListBtnVisible] = useState(true);
   const [addedItems, setAddedItems] = useState({});
   const navigate = useNavigate();
 
@@ -246,7 +246,7 @@ const HomePage = () => {
   };
 
   const closePopup = () => {
-    setPopupInfo({ visible: false, content: "", isPlayListBtnVisible: true });
+    setPopupInfo({ visible: false, content: "" });
   };
 
   const getYouTubeVideoID = (url) => {
@@ -338,44 +338,13 @@ const HomePage = () => {
                 <h5 className="card-title justify-content-between mb-0">
                   <p className="text-elipsis">{song?.element.name || song?.element.songName}</p>
                   {isAuthenticated && <div className="add-options d-flex align-items-start">
-                    {isPlayListBtnVisible ? <button
+                    <button
                       type="button"
                       className="btn btn-outline-dark mx-1"
-                      onClick={() => setIsPlayListBtnVisible(false)}
+                      
                     >
-                      Add to Playlist
-                    </button> :
-                      <div className='row'>
-                        {playListname && playListname.map((item, key) => (
-                          <div className='mt-2' key={key}>
-                            <div className='bg-trans-ppl d-flex align-items-center justify-content-between'>
-                              <div className="d-flex align-items-center">
-                                <img
-                                  className="playlist-img"
-                                  width={50}
-                                  height={50}
-                                  src='https://media.istockphoto.com/id/1362829608/vector/music-notes-isolated-vector-illustration.jpg?s=612x612&w=0&k=20&c=NJB6lI60iQRN8tneYfnl8FCGknOyMf6ocD1eiBl_Ers='
-                                  alt="playlist"
-                                />
-                                <span className='playlist-name'>{item.playlistName}</span>
-
-                                {!addedItems[item.playlistName] ? (
-                                  <button
-                                    className="btn-add"
-                                    onClick={() => handleAddClick(item.playlistName)}
-                                  >
-                                    Add
-                                  </button>
-                                ) : (
-                                  <button className="btn-added" disabled>
-                                    Added
-                                  </button>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>}
+                      Add to Favorite
+                    </button>
                   </div>}
                 </h5>
               </div>
