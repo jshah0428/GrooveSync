@@ -34,20 +34,20 @@ const QuestionAnswerBox = () => {
 
 
     return (
-        <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
-            <form onSubmit={handleSubmit}>
-                <div>
+        <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+            <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+                <div style={{ width: '100%', textAlign: 'center' }}>
                     <label htmlFor="question" className= "h2">What would you like to know?</label>
-                    <input
-                        type="text"
-                        id="question"
-                        value={question}
-                        onChange={(e) => setQuestion(e.target.value)}
-                        placeholder="Enter your question here"
-                        style={{ width: '100%', padding: '10px', margin: '10px 0' }}
-                    />
+                        <input
+                            type="text"
+                            id="question"
+                            value={question}
+                            onChange={(e) => setQuestion(e.target.value)}
+                            placeholder="Enter your question here"
+                            style={{ width: '100%', padding: '10px', margin: '10px 0' }}
+                            />
                 </div>
-                <button type="submit" style={{ padding: '10px 20px' }}>Submit</button>
+                <button type="submit" className= "submit-button">Submit</button>
             </form>
             {answer && (
                 <div style={{ marginTop: '20px', padding: '10px', backgroundColor: 'rgb(42, 0, 65)' }}>

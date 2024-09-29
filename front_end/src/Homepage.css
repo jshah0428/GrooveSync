@@ -419,6 +419,31 @@ h2 {
   background-color: #551a8b; /* Darker purple on hover */
 }
 
+.submit-button {
+  background-color: purple;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  width: 300px;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 10px;
+  transition: background-color 0.3s ease;
+  font-family: 'Disco';
+  font-size: 30px;
+  font-weight: 200;
+  transition: transform 0.3s ease;
+}
+
+.submit-button:hover {
+  transform: scale(1.1);
+  background-color: #551a8b; /* Darker purple on hover */
+}
+
+
+
 .close:hover {
   transform: scale(1.4);
 }
