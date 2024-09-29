@@ -1,18 +1,31 @@
 import React from "react";
 import "./Splash.css"; // Import the CSS file
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link, useNavigate } from "react-router-dom"; // Import Link from react-router-dom
 import { useAuth0 } from "@auth0/auth0-react";
 
 
 const Splash = () => {
-  const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0();
+  const { user, loginWithPopup, isAuthenticated, logout } = useAuth0();
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    await loginWithPopup();
+    navigate('/disco'); // Redirect to the desired page after login
+  };
 
   return (
     <div className="splash-container">
       <div className="splashlogin">
         {isAuthenticated && <span className="z-10"></span>} 
-        {isAuthenticated ? <button className="splashbutton" onClick={() => logout()}>Logout</button> :
-          <button onClick={() => loginWithRedirect()} className="splashbutton">Log In</button>}
+        {isAuthenticated ? (
+          <button className="splashbutton" onClick={() => logout()}>
+            Logout
+          </button>
+        ) : (
+          <button onClick={handleLogin} className="splashbutton">
+            Log In
+          </button>
+        )}
       </div>
       <div className= "music">
       <Link to="/musical-career-game" className="text-link"> <button className="splashbutton">Music Career</button> </Link>
