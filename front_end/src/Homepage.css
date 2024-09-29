@@ -373,6 +373,8 @@ h2 {
   background-color: white;
   font-size: 30px;
   font-family: Arial, sans-serif;
+  align-items: center;
+  justify-content: center;
   
   color: black;
   padding: 20px;
@@ -392,6 +394,29 @@ h2 {
   cursor: pointer;
   padding: 5px;
   border-radius: 100%;
+}
+
+.favorite-button {
+  background-color: purple;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  width: 500px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Disco';
+  font-size: 30px;
+  font-weight: 200;
+  transition: transform 0.3s ease;
+}
+
+.favorite-button:hover {
+  transform: scale(1.1);
+  background-color: #551a8b; /* Darker purple on hover */
 }
 
 .close:hover {
