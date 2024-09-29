@@ -349,7 +349,7 @@ const HomePage = () => {
                   {isAuthenticated && <div className="add-options d-flex align-items-start">
                     <button
                       type="button"
-                      className="btn btn-outline-dark mx-1"
+                      className="btn btn-outline-dark mx-1 favorite-button"
                       onClick={() => handleAddToFav()}
 
                     >

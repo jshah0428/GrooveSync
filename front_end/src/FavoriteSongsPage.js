@@ -79,11 +79,11 @@ const FavoriteSongsPage = () => {
                             <h3>{song.name}</h3>
                             <p>{song.artist}</p>
                             {isMusicPlay && currentAudio === song.url ? (
-                                <button className="play-button" onClick={pauseAudio}>
+                                <button className="submit-button" onClick={pauseAudio}>
                                     Pause
                                 </button>
                             ) : (
-                                <button className="play-button" onClick={() => playAudio(song.url)}>
+                                <button className="submit-button" onClick={() => playAudio(song.url)}>
                                     Play
                                 </button>
                             )}
