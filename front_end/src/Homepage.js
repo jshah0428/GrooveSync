@@ -154,16 +154,16 @@ const HomePage = () => {
   }, [])
 
   const facts = [
-    "Disco originated in the 1970s.",
-    "The first disco club was in New York City.",
-    "Disco balls are also known as mirror balls.",
-    "The Bee Gees were a famous disco band.",
-    "Saturday Night Fever popularized disco.",
-    "Disco music is characterized by a steady four-on-the-floor beat.",
-    "Donna Summer was known as the Queen of Disco.",
-    "Disco fashion included bell-bottoms and platform shoes.",
-    "Studio 54 was a famous disco club in NYC.",
-    "Disco influenced the development of electronic dance music."
+    "Disco emerged in the early 1970s, primarily in New York City’s underground clubs. It was embraced by marginalized communities, including Black, Latino, and LGBTQ+ groups, making it a symbol of inclusivity and freedom.",
+    "The 1977 film *Saturday Night Fever* helped catapult disco into mainstream culture. Its soundtrack, led by the Bee Gees, became one of the best-selling albums of all time.",
+    "Studio 54, one of the most famous discos, became a playground for celebrities like Andy Warhol, Mick Jagger, and Diana Ross. Known for its wild parties, it symbolized the excess and glamour of the disco era.",
+    "Disco revolutionized dance with moves like the Hustle and the Electric Slide. These synchronized, fluid dances became staples of disco culture and were central to the dance floor experience.",
+    "DJs became central figures in disco clubs, experimenting with new sounds and creating seamless mixes that kept people dancing for hours. Legends like Larry Levan and David Mancuso were pioneers of this evolving DJ culture.",
+    "Disco popularized the 12-inch single, allowing for extended tracks with more complex instrumental sections. This format gave DJs flexibility for longer mixes and more immersive dance experiences.",
+    "Disco fashion was flamboyant and flashy, with sequins, platform shoes, and bell-bottoms dominating the scene. Designers like Halston created glamorous outfits that became synonymous with the disco lifestyle.",
+    "Disco faced backlash from rock fans, culminating in the infamous 'Disco Demolition Night' in 1979, where records were destroyed in a public protest. This event symbolized the growing divide between musical subcultures at the time.",
+    "Disco's electronic sounds laid the groundwork for house and techno music, which emerged in the 1980s. These genres evolved from disco's beats and became integral to the development of modern electronic dance music.",
+    "Even after its decline in the early 1980s, disco continues to influence modern music. Artists like Daft Punk and Beyoncé have incorporated disco elements into their songs, proving its lasting appeal."
   ];
 
   const history = [

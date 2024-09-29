@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Homepage.css';
 
 const QuestionAnswerBox = () => {
     const [question, setQuestion] = useState('');
@@ -36,7 +37,7 @@ const QuestionAnswerBox = () => {
         <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="question">What would you like to know?</label>
+                    <label htmlFor="question" className= "h2">What would you like to know?</label>
                     <input
                         type="text"
                         id="question"
