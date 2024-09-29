@@ -58,6 +58,7 @@ async function connection() {
         const database = client.db("userprofilesDB");
         const collection = database.collection("users");
         const collection2 = database.collection("playlist");
+        const collection3 = database.collection('favorite_songs')
         return { database, collection, collection2 };
     } catch (error) {
         console.error("Error connecting to MongoDB:", error);
@@ -66,15 +67,16 @@ async function connection() {
 
 app.post('/reg_login_users', async (req, res) => {
     const { collection } = await connection();
-    
+
     const newUserProfile = {
         username: req.body.username,
         first_name: req.body.firstname,
         last_name: req.body.lastname,
         email: req.body.email,
-        created: new Date()
+        created: new Date(),
+        fav_songs: [] // Initialize fav_songs as an empty array
     };
-    
+
     const existingUser = await collection.findOne({ username: newUserProfile.username });
     const existingEmail = await collection.findOne({ email: newUserProfile.email });
 
@@ -89,78 +91,137 @@ app.post('/reg_login_users', async (req, res) => {
 });
 
 
+
 //this method will add songs AND create playlists(if you set the songs array to blank ([]))
-app.post('/add_songs', async (req, res) => {
-    const { collection2 } = await connection();
+// app.post('/add_songs', async (req, res) => {
+//     const { collection2 } = await connection();
 
-    const user_id = req.body.userId;
-    const songs = req.body.songs; // This should be an array
-    const playlist_name = req.body.playlist_name;
+//     const user_id = req.body.userId;
+//     const songs = req.body.songs; // This should be an array
+//     const playlist_name = req.body.playlist_name;
 
-    if (!Array.isArray(songs)) {
-        return res.status(400).json({ error: 'Songs must be an array' });
+//     if (!Array.isArray(songs)) {
+//         return res.status(400).json({ error: 'Songs must be an array' });
+//     }
+
+//     const addSongs = {
+//         user_id,
+//         songs,
+//         playlist_name,
+//     };
+
+//     for (const song of songs) {
+//         if (!song.name || !song.artist || !song.url) {
+//             return res.status(400).json({ error: 'Each song must have name, artist, and url' });
+//         }
+//     }
+
+//     try {
+//         const result = await collection2.updateOne(
+//             { user_id, playlist_name },
+//             { $push: { songs: { $each: songs } } },
+//             { upsert: true }
+//         );
+
+//         return res.json({ message: `Songs added to playlist: ${playlist_name}`, result });
+//     } catch (error) {
+//         console.error('Error adding songs:', error);
+//         return res.status(500).json({ error: 'An error occurred while adding songs' });
+//     }
+// });
+
+
+// app.post('/get_playlists', async (req, res) => {
+//     const { collection2 } = await connection();
+//     const user_id = req.body.userId;
+
+//     try {
+//         const playlists = await collection2.find({ user_id }).toArray();
+
+//         if (playlists.length === 0) {
+//             return res.status(404).json({ message: 'No playlists found for this user' });
+//         }
+
+//         // Map over the playlists to get the desired structure
+//         const response = playlists.map(playlist => ({
+//             playlist_name: playlist.playlist_name,
+//             songs: playlist.songs.map(song => ({
+//                 name: song.name,
+//                 artist: song.artist,
+//                 url: song.url
+//             }))
+//         }));
+
+//         return res.json(response);
+//     } catch (error) {
+//         console.error('Error fetching playlists:', error);
+//         return res.status(500).json({ error: 'An error occurred while fetching playlists' });
+//     }
+// });
+
+app.post('/add-to-favorite', async (req, res) => {
+    const { collection } = await connection(); // Use the users collection
+
+    const { url, name, artist, image, userId } = req.body;
+
+    if (!userId) {
+        return res.status(400).json({ message: 'User ID is required' });
     }
 
-    const addSongs = {
-        user_id,
-        songs,
-        playlist_name,
+    if (!url || !name || !artist || !image) {
+        return res.status(400).json({ message: 'Song details (name, artist, url, image) are required' });
+    }
+
+    const favoriteSong = {
+        name,
+        artist,
+        url,
+        image,
+        added_at: new Date(),
     };
 
-    for (const song of songs) {
-        if (!song.name || !song.artist || !song.url) {
-            return res.status(400).json({ error: 'Each song must have name, artist, and url' });
-        }
-    }
-
     try {
-        const result = await collection2.updateOne(
-            { user_id, playlist_name },
-            { $push: { songs: { $each: songs } } },
-            { upsert: true }
+        // Update the user's favorites list, upserting if the user doesn't have a favorites list yet
+        const result = await collection.updateOne(
+            { username: userId }, // Assuming username is used as userId, adjust as necessary
+            { $push: { fav_songs: favoriteSong } },
+            { upsert: true } // Creates a new document if it doesn't exist
         );
 
-        return res.json({ message: `Songs added to playlist: ${playlist_name}`, result });
+        return res.status(201).json({ message: 'Song added to favorites successfully', result });
     } catch (error) {
-        console.error('Error adding songs:', error);
-        return res.status(500).json({ error: 'An error occurred while adding songs' });
+        console.error('Error adding song to favorites:', error);
+        return res.status(500).json({ message: 'An error occurred while adding the song to favorites' });
     }
 });
 
 
-app.post('/get_playlists', async (req, res) => {
-    const { collection2 } = await connection();
-    const user_id = req.body.userId;
+app.post('/get-favorite-songs', async (req, res) => {
+    const { collection } = await connection(); // Use the users collection
+    const userId = req.body.userId;
+
+    if (!userId) {
+        return res.status(400).json({ error: 'User ID is required' });
+    }
 
     try {
-        const playlists = await collection2.find({ user_id }).toArray();
+        const user = await collection.findOne({ username: userId });
 
-        if (playlists.length === 0) {
-            return res.status(404).json({ message: 'No playlists found for this user' });
+        if (!user || !user.fav_songs || user.fav_songs.length === 0) {
+            return res.status(404).json({ message: 'No favorite songs found for this user' });
         }
 
-        // Map over the playlists to get the desired structure
-        const response = playlists.map(playlist => ({
-            playlist_name: playlist.playlist_name,
-            songs: playlist.songs.map(song => ({
-                name: song.name,
-                artist: song.artist,
-                url: song.url
-            }))
-        }));
-
-        return res.json(response);
+        // Respond with favorite songs
+        return res.json(user.fav_songs);
     } catch (error) {
-        console.error('Error fetching playlists:', error);
-        return res.status(500).json({ error: 'An error occurred while fetching playlists' });
+        console.error('Error fetching favorite songs:', error);
+        return res.status(500).json({ error: 'An error occurred while fetching favorite songs' });
     }
 });
-
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
-
 
 //testing to get songs.
 
@@ -212,24 +273,24 @@ get songs in playlist(potentially own method)
 
 
 // extra api key, not important
-app.post('/create_playlist', async (req, res) => {
-    const { collection2 } = await connection();
+// app.post('/create_playlist', async (req, res) => {
+//     const { collection2 } = await connection();
 
 
-    const newPlayList = {
-        user_id: req.body.userId,
-        songs: [],
-        playlist_name: req.body.playlist_name,
-        created: new Date()
-    }
+//     const newPlayList = {
+//         user_id: req.body.userId,
+//         songs: [],
+//         playlist_name: req.body.playlist_name,
+//         created: new Date()
+//     }
 
-    const existingPlaylist = await collection2.findOne({ playlist_name: newPlayList.playlist_name })
+//     const existingPlaylist = await collection2.findOne({ playlist_name: newPlayList.playlist_name })
 
-    if (existingPlaylist) {
-        return res.response(400).json({ error: "playlist name already exists" })
-    } else {
-        await collection2.insertOne({ newPlayList })
-        return res.json({ message: `New playlist named ${newPlayList.playlist_name} was created` })
-    }
+//     if (existingPlaylist) {
+//         return res.response(400).json({ error: "playlist name already exists" })
+//     } else {
+//         await collection2.insertOne({ newPlayList })
+//         return res.json({ message: `New playlist named ${newPlayList.playlist_name} was created` })
+//     }
 
-});
+// });

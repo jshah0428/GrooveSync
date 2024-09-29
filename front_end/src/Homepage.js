@@ -23,6 +23,7 @@ const HomePage = () => {
   // const [isPlayListBtnVisible, setIsPlayListBtnVisible] = useState(true);
   const [addedItems, setAddedItems] = useState({});
   const navigate = useNavigate();
+  const [addToFav, setAddToFav] = useState(false);
 
   const [playListname, setPlayListName] = useState([
     { playlistName: "helo" },
@@ -31,8 +32,13 @@ const HomePage = () => {
   ]);
 
   useEffect(() => {
-    if (isAuthenticated && user) {
+    const isLoggedIn = localStorage.getItem("userId");
+    if (isAuthenticated && user && !isLoggedIn) {
       registerUserInDB(user);
+    }
+
+    if (user) {
+      localStorage.setItem("userId", user.nickname);
     }
   }, [isAuthenticated, user]);
 
@@ -53,7 +59,7 @@ const HomePage = () => {
 
       const data = await response.json();
       if (data?.userId) {
-        localStorage.setItem("userId", data.userId);
+        localStorage.setItem("userId", data.username);
       }
 
       if (!response.ok) {
@@ -63,45 +69,6 @@ const HomePage = () => {
       }
     } catch (error) {
       console.error('Error registering user:', error);
-    }
-  };
-
-  const handleAddClick = (playlistName) => {
-    // Update the state to mark the playlist as added
-    setAddedItems((prevState) => ({
-      ...prevState,
-      [playlistName]: true,
-    }));
-
-    const songs = [
-      {
-        name: song?.element.name,
-        artist: song?.element.artist,
-        url: song.element.url
-      }
-    ]
-    addSongsToPlaylist(playlistName, songs)
-  };
-
-  const addSongsToPlaylist = async (playlistName, songs) => {
-    try {
-      const userId = localStorage.getItem("userId");
-      const response = await axios.post('http://localhost:3001/add_songs', {
-        userId,
-        playlist_name: playlistName,
-        songs
-      });
-
-      if (response.status === 200) {
-        console.log('Songs added successfully:', response.data.message);
-        return response.data.message;
-      } else {
-        console.error('Failed to add songs:', response.data.error);
-        return response.data.error;
-      }
-    } catch (error) {
-      console.error('Error adding songs:', error);
-      return 'Error occurred while adding songs';
     }
   };
 
@@ -166,10 +133,6 @@ const HomePage = () => {
     "Even after its decline in the early 1980s, disco continues to influence modern music. Artists like Daft Punk and Beyoncé have incorporated disco elements into their songs, proving its lasting appeal."
   ];
 
-  const history = [
-
-  ]
-
   const getRandomColorAndFact = () => {
     const colors = [
       // Shades of purple
@@ -211,14 +174,14 @@ const HomePage = () => {
 
     const data = await response.json();
 
-    if (data.tracks.items.length > 0) {
+    if (data?.tracks?.items?.length > 0) {
       const randomSong = data.tracks.items[0];
-      console.log("element", randomSong);
       setSong({
         element: randomSong,
         name: randomSong.name,
         artist: randomSong.artists[0].name,
         url: randomSong.preview_url,
+        image: randomSong.album?.images[0]?.url
       });
       if (audioRef.current) {
         audioRef.current.pause();
@@ -244,6 +207,51 @@ const HomePage = () => {
       content: fact,
     });
   };
+
+  const addToFavorites = async () => {
+    console.log(song);
+    let { url, name, artist, image } = song;
+    const userId = localStorage.getItem('userId')
+
+    if (!userId) {
+      throw new Error('User ID is required');
+    }
+
+    if (!url) {
+      url = getRandomFallbackUrl()
+    }
+    if (!name) {
+      name = 'BTS'
+    }
+    if (!artist) {
+      artist = 'BTS'
+    } if (!image) {
+      image = 'https://www.earpeace.co.uk/cdn/shop/articles/Blog_header_images_58444563-e9d5-4c0e-93f1-3cbc779b11bc.png?v=1652114742'
+    }
+
+    // if (!url || !name || !artist || !image) {
+    //   throw new Error('Song details (name, artist, url, image) are required');
+    // }
+
+    try {
+      const response = await axios.post('http://localhost:3001/add-to-favorite', {
+        url,
+        name,
+        artist,
+        image,
+        userId
+      });
+      return response.data; // Successful response
+    } catch (error) {
+      console.error('Error adding to favorites:', error);
+      throw error; // Propagate the error
+    }
+  };
+
+  const handleAddToFav = () => {
+    setAddToFav(true);
+    addToFavorites();
+  }
 
   const closePopup = () => {
     setPopupInfo({ visible: false, content: "" });
@@ -341,10 +349,11 @@ const HomePage = () => {
                   {isAuthenticated && <div className="add-options d-flex align-items-start">
                     <button
                       type="button"
-                      className="favorite-button"
-                      
+                      className="btn btn-outline-dark mx-1"
+                      onClick={() => handleAddToFav()}
+
                     >
-                      Add to Favorite
+                      {addToFav ? "Added" : "Add to Favorite"}
                     </button>
                   </div>}
                 </h5>

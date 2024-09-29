@@ -7,7 +7,7 @@ import MusicalCareerGame from './MusicalCareerGame';
 import Splash from './Splash';
 import "./App.css"; // Import the CSS file for transitions
 
-import Playlist from './playlist';
+import Playlist from './FavoriteSongsPage';
 
 
 const isAuthenticated = () => {
