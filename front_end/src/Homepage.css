@@ -385,3 +385,74 @@ h1 {
   padding: 5px;
   border-radius: 100%;
 }
+
+/* Styling the main container */
+.mt-2 {
+  margin-top: 1rem;
+}
+
+/* Styling the playlist item container */
+.bg-trans-ppl {
+  background-color: rgba(128, 0, 128, 0.2); /* Light purple background */
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+/* Playlist item image */
+.playlist-img {
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+/* Playlist name text */
+.playlist-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #4b0082; /* Indigo color */
+  margin-right: 10px;
+}
+
+/* Add/Added button styling */
+.btn-add {
+  background-color: #4b0082;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+.btn-add:hover {
+  background-color: #551a8b; /* Darker purple on hover */
+}
+
+/* Disabled "Added" button */
+.btn-added {
+  background-color: gray;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: not-allowed;
+  margin-left: 10px;
+}
+
+/* Flexbox styling for aligning content properly */
+.d-flex {
+  display: flex;
+  align-items: center;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.ml-2 {
+  margin-left: 10px;
+}

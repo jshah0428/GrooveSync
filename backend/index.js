@@ -5,16 +5,16 @@ const cors = require('cors'); // Import the cors package
 
 
 const app = express();
-const port = 3001; 
+const port = 3001;
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = `mongodb+srv://jainamshah0428:${process.env.db_password}@girlhackscluster.3r5xk.mongodb.net/?retryWrites=true&w=majority&appName=girlhackscluster`;
 const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    }
 });
 
 const anthropic = new Anthropic({
@@ -45,7 +45,7 @@ app.post('/generate_homepage', async (req, res) => {
         });
 
         res.json({ result: anthropicResponse.completion });
-    
+
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'An error occurred while processing your request' });
@@ -74,7 +74,7 @@ app.post('/reg_login_users', async (req, res) => {
         email: req.body.email,
         created: new Date()
     };
-
+    
     const existingUser = await collection.findOne({ username: newUserProfile.username });
     const existingEmail = await collection.findOne({ email: newUserProfile.email });
 
@@ -84,7 +84,7 @@ app.post('/reg_login_users', async (req, res) => {
         return res.status(400).json({ error: 'Email already exists' });
     } else {
         const result = await collection.insertOne(newUserProfile);
-        return res.json({ message: `New user profile created with the following id: ${result.insertedId}` });
+        return res.json({ userId: result.insertedId });
     }
 });
 
@@ -92,7 +92,7 @@ app.post('/reg_login_users', async (req, res) => {
 //this method will add songs AND create playlists(if you set the songs array to blank ([]))
 app.post('/add_songs', async (req, res) => {
     const { collection2 } = await connection();
-    
+
     const user_id = req.body.userId;
     const songs = req.body.songs; // This should be an array
     const playlist_name = req.body.playlist_name;
@@ -117,7 +117,7 @@ app.post('/add_songs', async (req, res) => {
         const result = await collection2.updateOne(
             { user_id, playlist_name },
             { $push: { songs: { $each: songs } } },
-            { upsert: true } 
+            { upsert: true }
         );
 
         return res.json({ message: `Songs added to playlist: ${playlist_name}`, result });
@@ -143,13 +143,13 @@ app.post('/get_playlists', async (req, res) => {
         const response = playlists.map(playlist => ({
             playlist_name: playlist.playlist_name,
             songs: playlist.songs.map(song => ({
-                name: song.name,      
-                artist: song.artist,  
-                url: song.url         
+                name: song.name,
+                artist: song.artist,
+                url: song.url
             }))
         }));
 
-        return res.json(response); 
+        return res.json(response);
     } catch (error) {
         console.error('Error fetching playlists:', error);
         return res.status(500).json({ error: 'An error occurred while fetching playlists' });
@@ -165,34 +165,34 @@ app.listen(port, () => {
 //testing to get songs.
 
 // Test function for user registration
-async function generateResponse(userData) {
-    const response = await fetch('http://localhost:3001/get_playlists', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-    });
-    
-    // Assuming response is successful, parse the JSON
-    const data = await response.json();
-    return data;
-}
+// async function generateResponse(userData) {
+//     const response = await fetch('http://localhost:3001/get_playlists', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(userData),
+//     });
+
+//     // Assuming response is successful, parse the JSON
+//     const data = await response.json();
+//     return data;
+// }
 
 // Example data to test getting playlists
-generateResponse({
-    userId: "jainam",
-})
-.then(data => {
-    // No need to call response.json() again
-    data.forEach(playlist => {
-        console.log(`Playlist: ${playlist.playlist_name}`);
-        playlist.songs.forEach(song => {
-            console.log(`Song: ${song.name}, Artist: ${song.artist}, URL: ${song.url}`);
-        });
-    });
-})
-.catch(error => console.error('Error:', error));
+// generateResponse({
+//     userId: "jainam",
+// })
+// .then(data => {
+//     // No need to call response.json() again
+//     data.forEach(playlist => {
+//         console.log(`Playlist: ${playlist.playlist_name}`);
+//         playlist.songs.forEach(song => {
+//             console.log(`Song: ${song.name}, Artist: ${song.artist}, URL: ${song.url}`);
+//         });
+//     });
+// })
+// .catch(error => console.error('Error:', error));
 
 /*
 get playlists
@@ -212,24 +212,24 @@ get songs in playlist(potentially own method)
 
 
 // extra api key, not important
-// app.post('/create_playlist', async (req, res)=>{
-//     const { collection2 } = await connection();
+app.post('/create_playlist', async (req, res) => {
+    const { collection2 } = await connection();
 
-    
-//     const newPlayList = {
-//         user_id: req.body.userId,
-//         songs: [],
-//         playlist_name: req.body.playlist_name,
-//         created: new Date()
-//     }
 
-//     const existingPlaylist = await collection2.findOne({ playlist_name: newPlayList.playlist_name})
+    const newPlayList = {
+        user_id: req.body.userId,
+        songs: [],
+        playlist_name: req.body.playlist_name,
+        created: new Date()
+    }
 
-//     if (existingPlaylist){
-//         return res.response(400).json({ error: "playlist name already exists"})
-//     }else{
-//         const result = await collection2.insertOne({newPlayList})
-//         return res.json({ message: `New playlist named ${newPlayList.playlist_name} was created`})
-//     }
+    const existingPlaylist = await collection2.findOne({ playlist_name: newPlayList.playlist_name })
 
-// });
+    if (existingPlaylist) {
+        return res.response(400).json({ error: "playlist name already exists" })
+    } else {
+        await collection2.insertOne({ newPlayList })
+        return res.json({ message: `New playlist named ${newPlayList.playlist_name} was created` })
+    }
+
+});
