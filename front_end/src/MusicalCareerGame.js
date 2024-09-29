@@ -115,7 +115,7 @@ export default function MusicalCareerGame() {
       </div>
       
       <Loader loading={loading} />
-      <h1 className='z-10'>Creat A Musical Story</h1>
+      <h1 className='z-10'>Create your Musical Story</h1>
       {isGameActive && (
         <>
           {!options.length && !selectedOption && (
@@ -124,7 +124,7 @@ export default function MusicalCareerGame() {
                 type="text"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Enter the prompt to start a story"
+                placeholder="Tell me about yourself"
                 style={styles.input}
               />
               <button onClick={handleSubmit} style={styles.button} disabled={loading}>
