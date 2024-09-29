@@ -21,7 +21,7 @@ export default function MusicalCareerGame() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ prompt: `Start a story ${prompt} for 3 lines` }),
+        body: JSON.stringify({ prompt: `Make a story about the disco era. This should be about a story about a ficticious musician with some expertise of an instrument. We want the user to be in the shoes of this person, and click on different choices in his path. Make sure this story is not more than 3 lines, and it ends with a question prompt. I only want the story. Don't give me any introduction that says "here is a three line story" I ONLY WANT THE STORY` }),
       });
       const data1 = await response1.json();
 
@@ -30,13 +30,13 @@ export default function MusicalCareerGame() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ prompt: `Continue the story : ${prompt}` }),
+        body: JSON.stringify({ prompt: `Make a story about the disco era. This should be about a story about a ficticious musician with some expertise of an instrument. We want the user to be in the shoes of this person, and click on different choices in his path. Make sure this story is not more than 3 lines, and it ends with a question prompt. I only want the story. Don't give me any introduction that says "here is a three line story" I ONLY WANT THE STORY` }),
       });
       const data2 = await response2.json();
 
       // Set the options based on the responses from OpenAI
       setOptions([data1.result, data2.result]);
-      setStory(`Story: ${data1.result} `); // Start the story
+      // setStory(`Story: ${data1.result} `); // Start the story
       setStage(1); // Set stage to 1
       setSelectedOption(null); // Reset selected option
     } catch (error) {
@@ -56,7 +56,7 @@ export default function MusicalCareerGame() {
     // Fetch new options for the next stage
     if (stage < 4) {
       // Fetch new options for the next stage
-      fetchNewOptions(prompt);
+      fetchNewOptions(option);
     } else {
       // End the game when the last stage is reached
       setOptions([]);
@@ -73,7 +73,7 @@ export default function MusicalCareerGame() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ prompt: `Make any story ${artist}` }),
+        body: JSON.stringify({ prompt: `Make any story.${artist}` }),
       });
       const data1 = await response1.json();
 
@@ -82,7 +82,7 @@ export default function MusicalCareerGame() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ prompt: `Make any story ${artist}` }),
+        body: JSON.stringify({ prompt: `Make any story.${artist}` }),
       });
       const data2 = await response2.json();
 
@@ -120,13 +120,13 @@ export default function MusicalCareerGame() {
         <>
           {!options.length && !selectedOption && (
             <div style={styles.inputSection}>
-              <input
+              {/* <input
                 type="text"
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Tell me about yourself"
+                placeholder="Enter some prompt to create a story"
                 style={styles.input}
-              />
+              /> */}
               <button onClick={handleSubmit} style={styles.button} disabled={loading}>
                 {loading ? 'Loading...' : 'Generate Options'}
               </button>
